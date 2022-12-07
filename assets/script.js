@@ -18,6 +18,9 @@ $(function () {
     }
   }).done(function (data) {
     $("#cityName").text(data.city.name);
+    $("#currentTemp").text(data.list[0].main.temp);
+    $("#currentWind").text(data.list[0].wind.speed);
+    $("#currentHumidity").text(data.list[0].main.humidity);
   });
   }
 
