@@ -14,11 +14,16 @@ $(function () {
     data: {
         lat: latitude,
         lon: longitude,
-        appid: apiKey
+        appid: apiKey,
+      //  units: imperial,
     }
   }).done(function (data) {
     $("#cityName").text(data.city.name);
     $("#currentTemp").text(data.list[0].main.temp);
+    //var temp = (data.list[0].main.temp);
+    //var tem =((temp - 273.15) * 9) / 5 + 32;
+    //t = tem.toFixed(0);
+    //$("#currentTemp").text(t)
     $("#currentWind").text(data.list[0].wind.speed);
     $("#currentHumidity").text(data.list[0].main.humidity);
   });
