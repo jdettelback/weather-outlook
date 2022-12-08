@@ -1,5 +1,8 @@
 var apiKey = "8bb3e7fd7fa49e2829665fc61937085d";
 
+var today = dayjs();
+$("#date").text(today.format("M/D/YYYY"));
+
 $(function () {
   function fiveDayForecast(latitude, longitude) {
     $.ajax({
@@ -13,31 +16,67 @@ $(function () {
       },
     }).done(function (data) {
       $("#cityName").text(data.city.name);
-      $("#currentTemp").text(data.list[0].main.temp);
-      $("#currentWind").text(data.list[0].wind.speed);
-      $("#currentHumidity").text(data.list[0].main.humidity);
+      //$("#icon").text(data.list[0].weather[0].icon);
+      $("#currentTemp")
+        .text(data.list[0].main.temp)
+        .prepend("Temp: ")
+        .append(" °F");
+      $("#currentWind")
+        .text(data.list[0].wind.speed)
+        .prepend("Wind: ")
+        .append(" MPH");
+      $("#currentHumidity")
+        .text(data.list[0].main.humidity)
+        .prepend("Humidity: ")
+        .append(" %");
+
+        varIconCode = data.list[0].weather[0].icon;
+
+        var iconUrl =
+          "http://openweathermap.org/img/w/" +
+          data.list[0].weather[0].icon +
+          ".png";
+        $("#wIcon").attr("src", iconUrl);
 
       for (var i = 1; i < 6; i++) {
-        $(".future-" +i).empty();
+        $(".future-" + i).empty();
+
+  
         var tempElement = $("<p>");
         tempElement.text(data.list[8 * i - 1].main.temp);
-        $(".future-" +i).append(tempElement);
-        var windElement = $("<p>");
+        $(".future-" + i)
+          .append(tempElement)
+          .prepend("Temp: ")
+          .append(" °F");
+          $("#nextDayTemp").text("");
+
+          
+
+        var windElement = $("<span>");
         windElement.text(data.list[8 * i - 1].wind.speed);
-        $(".future-" +i).append(windElement);
+        $(".future-" + i)
+          .append(windElement)
+          .prepend("Wind: ")
+          .append(" MPH");
+          $("#nextDayWind").text("");
+          
         var humidityElement = $("<p>");
         humidityElement.text(data.list[8 * i - 1].main.humidity);
-        $(".future-" +i).append(humidityElement);
+        $(".future-" + i)
+          .append(humidityElement)
+          .prepend("Humidity: ")
+          .append(" %");
+
+          
+      }
+
+      for (var x = 1; x < 6; x++) {
+        
+        var dayElement = $("#day-" + x);
+        dayElement.text(dayjs(today).add(x, "day").format("M/D/YYYY"));
       }
     });
   }
-
-  // var city;
-  // var priorCity = [];
-  // var current = $("#cityName");
-
-  // localStorage.setItem(city, current);
-  // priorCity.push(current);
 
   function setPriorCity() {
     $("#pastCity").empty();
@@ -46,7 +85,7 @@ $(function () {
         var value = localStorage.getItem(c);
         var element = $("<button>");
         element.text(value);
-        $("#pastCity").append(element);
+        $("#pastCity").append("<p>").append(element);
 
         element.click(function () {
           latLong($(this).text());
@@ -54,8 +93,6 @@ $(function () {
       }
     }
   }
-
-  // $(".priorDays").children().each().text("#cityName");
 
   function latLong(cityName) {
     $.ajax({
@@ -81,3 +118,8 @@ $(function () {
 
   setPriorCity();
 });
+
+
+
+  //a.weather[0].icon;
+  //document.getElementById("icon");
