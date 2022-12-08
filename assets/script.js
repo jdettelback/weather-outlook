@@ -16,6 +16,19 @@ $(function () {
       $("#currentTemp").text(data.list[0].main.temp);
       $("#currentWind").text(data.list[0].wind.speed);
       $("#currentHumidity").text(data.list[0].main.humidity);
+
+      for (var i = 1; i < 6; i++) {
+        $(".future-" +i).empty();
+        var tempElement = $("<p>");
+        tempElement.text(data.list[8 * i - 1].main.temp);
+        $(".future-" +i).append(tempElement);
+        var windElement = $("<p>");
+        windElement.text(data.list[8 * i - 1].wind.speed);
+        $(".future-" +i).append(windElement);
+        var humidityElement = $("<p>");
+        humidityElement.text(data.list[8 * i - 1].main.humidity);
+        $(".future-" +i).append(humidityElement);
+      }
     });
   }
 
@@ -29,16 +42,15 @@ $(function () {
   function setPriorCity() {
     $("#pastCity").empty();
     for (var c in localStorage) {
-      if (c.substring(0,5) == "city-") {
+      if (c.substring(0, 5) == "city-") {
         var value = localStorage.getItem(c);
-        var element = $("<button>")
+        var element = $("<button>");
         element.text(value);
         $("#pastCity").append(element);
 
         element.click(function () {
           latLong($(this).text());
         });
-
       }
     }
   }
@@ -59,17 +71,13 @@ $(function () {
     });
   }
 
-  
-
-
-
-  $("#button").click(function() {
+  $("#button").click(function () {
     var cityName = $("#cName").val();
     latLong(cityName);
     var cName = "city-" + cityName;
     localStorage.setItem(cName, cityName);
     setPriorCity();
   });
- 
+
   setPriorCity();
 });
