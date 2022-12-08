@@ -30,48 +30,45 @@ $(function () {
         .prepend("Humidity: ")
         .append(" %");
 
-        varIconCode = data.list[0].weather[0].icon;
+      varIconCode = data.list[0].weather[0].icon;
 
-        var iconUrl =
-          "http://openweathermap.org/img/w/" +
-          data.list[0].weather[0].icon +
-          ".png";
-        $("#wIcon").attr("src", iconUrl);
+      var iconUrl =
+        "http://openweathermap.org/img/w/" +
+        data.list[0].weather[0].icon +
+        ".png";
+      $("#wIcon").attr("src", iconUrl);
 
       for (var i = 1; i < 6; i++) {
         $(".future-" + i).empty();
 
-  
+        var iconElement = $("<img>");
+        var picture =
+          "http://openweathermap.org/img/w/" +
+          data.list[8 * i - 1].weather[0].icon +
+          ".png";
+        iconElement.attr("src", picture);
+        $(".future-" + i).append(iconElement);
+        
+
         var tempElement = $("<p>");
-        tempElement.text(data.list[8 * i - 1].main.temp);
-        $(".future-" + i)
-          .append(tempElement)
-          .prepend("Temp: ")
-          .append(" °F");
-          $("#nextDayTemp").text("");
+        tempElement.text("Temp: " + data.list[8 * i - 1].main.temp + " °F");
+        $(".future-" + i).append(tempElement);
+        $("#nextDayTemp").text("");
 
-          
+        var windElement = $("<p>");
+        windElement.text("Wind: " + data.list[8 * i - 1].wind.speed + " MPH");
+        $(".future-" + i).append(windElement);
+        $("#nextDayWind").text("");
 
-        var windElement = $("<span>");
-        windElement.text(data.list[8 * i - 1].wind.speed);
-        $(".future-" + i)
-          .append(windElement)
-          .prepend("Wind: ")
-          .append(" MPH");
-          $("#nextDayWind").text("");
-          
         var humidityElement = $("<p>");
-        humidityElement.text(data.list[8 * i - 1].main.humidity);
-        $(".future-" + i)
-          .append(humidityElement)
-          .prepend("Humidity: ")
-          .append(" %");
-
-          
+        humidityElement.text(
+          "Humidity: " + data.list[8 * i - 1].main.humidity + " %"
+        );
+        $(".future-" + i).append(humidityElement);
+        $("#nextDayHumidity").text("");
       }
 
       for (var x = 1; x < 6; x++) {
-        
         var dayElement = $("#day-" + x);
         dayElement.text(dayjs(today).add(x, "day").format("M/D/YYYY"));
       }
@@ -119,7 +116,5 @@ $(function () {
   setPriorCity();
 });
 
-
-
-  //a.weather[0].icon;
-  //document.getElementById("icon");
+//a.weather[0].icon;
+//document.getElementById("icon");
