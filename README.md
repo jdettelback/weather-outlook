@@ -4,3 +4,4 @@
 
 ## Prior searches are shown below the input area and can be clicked to show updated information from that city without retyping.
 
+![screenshot](https://raw.githubusercontent.com/jdettelback/weather-outlook/main/assets/weatherscreenshot.png)
