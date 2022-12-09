@@ -16,7 +16,6 @@ $(function () {
       },
     }).done(function (data) {
       $("#cityName").text(data.city.name);
-      //$("#icon").text(data.list[0].weather[0].icon);
       $("#currentTemp")
         .text(data.list[0].main.temp)
         .prepend("Temp: ")
@@ -48,24 +47,20 @@ $(function () {
           ".png";
         iconElement.attr("src", picture);
         $(".future-" + i).append(iconElement);
-        
 
         var tempElement = $("<p>");
         tempElement.text("Temp: " + data.list[8 * i - 1].main.temp + " °F");
         $(".future-" + i).append(tempElement);
-        $("#nextDayTemp").text("");
 
         var windElement = $("<p>");
         windElement.text("Wind: " + data.list[8 * i - 1].wind.speed + " MPH");
         $(".future-" + i).append(windElement);
-        $("#nextDayWind").text("");
 
         var humidityElement = $("<p>");
         humidityElement.text(
           "Humidity: " + data.list[8 * i - 1].main.humidity + " %"
         );
         $(".future-" + i).append(humidityElement);
-        $("#nextDayHumidity").text("");
       }
 
       for (var x = 1; x < 6; x++) {
@@ -106,7 +101,7 @@ $(function () {
   }
 
   $("#button").click(function () {
-    var cityName = $("#cName").val();
+    var cityName = $("#cName").val().toLowerCase();
     latLong(cityName);
     var cName = "city-" + cityName;
     localStorage.setItem(cName, cityName);
@@ -115,6 +110,3 @@ $(function () {
 
   setPriorCity();
 });
-
-//a.weather[0].icon;
-//document.getElementById("icon");

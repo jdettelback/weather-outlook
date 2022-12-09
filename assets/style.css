@@ -1,0 +1,11 @@
+#cityName{
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#date,
+#currentTemp,
+#currentWind,
+#currentHumidity {
+    font-size: 22px;
+}
